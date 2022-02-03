@@ -1,0 +1,10 @@
+
+{% extends 'base.html' %}
+
+{% block title %}
+     Загловок от bases
+{% endblock %}  
+ 
+{% block content %}
+  Это главная страница проекта «Youtube»!
+{% endblock %} 
