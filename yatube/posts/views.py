@@ -1,18 +1,15 @@
-# from django.shortcuts import render
-#  from re import template
-#  from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, get_object_or_404
 # Импортируем модель, чтобы обратиться к ней
 from .models import Post, Group
 POSTS_PER_PAGE = 10  # кол-во выводимых постов используется в index(request)
-# Create your views here.
 
 
 # Главная страница
 def index(request):
     template = 'posts/index.html'
-    posts = Post.objects.order_by('-pub_date')[:POSTS_PER_PAGE]
-    # title = 'Это главная страница проекта Yatube'
+    posts = Post.objects.all()[:POSTS_PER_PAGE]
+    # .order_by('-pub_date') вынесено в мета модели
+    # title = 'Это главная страница проекта Yatube' прошлое задание для тест
     # Словарь с данными принято называть context
     context = {
         #  В словарь можно передать переменную
@@ -32,8 +29,9 @@ def group_posts(request, slug):
     # Это аналог добавления
     # условия WHERE group_id = {group_id}
     template = 'posts/group_list.html'
-    posts = (Post.objects.filter(group=group).
-             order_by('-pub_date')[:POSTS_PER_PAGE])
+    posts = (Post.objects.filter(group=group)[:POSTS_PER_PAGE]
+             # .order_by('-pub_date') вынесено в мета модели,
+             )
     context = {
         'group': group,
         'posts': posts,

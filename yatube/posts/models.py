@@ -4,28 +4,23 @@ User = get_user_model()
 
 
 class Group(models.Model):
-    title = models.CharField(max_length=200, verbose_name="Заголовок")
+    title = models.CharField("group name", max_length=200,)
     slug = models.SlugField(unique=True, verbose_name="URL", max_length=20)
-    description = models. TextField(verbose_name="Описание")
+    description = models. TextField("Description")
 
     # Metadata
     def __str__(self):
-        """
-        String for representing the MyModelName object (in Admin site etc.)
-        """
+        # выводим имя группы
         return self.title
 
 
 class Post(models.Model):
-    text = models.TextField(verbose_name="Текст поста")
-    pub_date = models.DateTimeField(auto_now_add=True,
-                                    verbose_name="Дата публикации")
+    text = models.TextField("PostText")
+    pub_date = models.DateTimeField("Publication_date", auto_now_add=True)
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        # related_name='posts', Убрать по просьбе ревьера, а на хрена
-        # убрать не понятно, он не пояснил!
-        verbose_name="Автор"
+        verbose_name="Author"
     )
     group = models.ForeignKey(
         Group,
@@ -38,3 +33,6 @@ class Post(models.Model):
     def __str__(self):
         # выводим текст поста
         return self.text
+
+    class Meta:
+        ordering = ['-pub_date']

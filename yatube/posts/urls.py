@@ -8,5 +8,3 @@ urlpatterns = [
     path('group/<slug:slug>/', views.group_posts, name='group_posts'),
 ]
 # из пространства имён namespace='posts' получ адрес из path() с name='index'».
-# Больше конфликтов не будет: namespace уверенно укажет, к какому
-#  именно path() нужно обратиться, даже если name приложений дублируются.
